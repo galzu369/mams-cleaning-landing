@@ -2,10 +2,498 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/mams-cleaning-landing.html">
-    <title>Mam's Cleaning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mam's Cleaning | Padrão de hotel. Conforto de casa.</title>
+    <meta name="description" content="Mam's Cleaning eleva residências e alojamento local na Ericeira, Mafra e Venda do Pinheiro com padrões de hotel e equipa selecionada.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --beige: #E9E1D6;
+            --lilac: #B884C7;
+            --lilac-dark: #A36CB3;
+            --navy: #0F1F3D;
+            --navy-2: #1B2E57;
+            --gold: #C6A756;
+            --black: #1A1A1A;
+            --white: #FFFFFF;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--beige);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(233, 225, 214, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(15, 31, 61, 0.1);
+            z-index: 100;
+        }
+        .container { width: min(1200px, 90%); margin: 0 auto; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+        .logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            animation: spin 14s linear infinite;
+            box-shadow: 0 15px 35px rgba(184, 132, 199, 0.35);
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.6) translateY(3%);
+            transform-origin: center;
+        }
+        .logo::before, .logo::after {
+            content: '';
+            position: absolute;
+            inset: -10%;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            opacity: 0.15;
+            animation: glitch 2.8s infinite ease-in-out alternate;
+        }
+        .logo::before {
+            background: radial-gradient(circle, rgba(255,255,255,0.6), transparent 60%);
+        }
+        .logo::after {
+            background: conic-gradient(from 0deg, rgba(198,167,86,0.4), rgba(184,132,199,0.4), transparent 70%);
+            animation-delay: 1.2s;
+        }
+        .language-toggle { display: flex; gap: 0.5rem; font-size: 0.9rem; }
+        .language-toggle button { background: none; border: none; color: var(--black); cursor: pointer; font-weight: 500; }
+        .language-toggle button.active { color: var(--lilac); }
+        .feature-panel {
+            width: min(1200px, 90%);
+            border-radius: 40px;
+            padding: clamp(2.5rem, 6vw, 4rem);
+            margin: 0 auto 3rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-panel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.25), transparent 55%);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+        .feature-panel .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+        .feature-panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+        .feature-panel p {
+            color: rgba(255,255,255,0.92);
+            max-width: 720px;
+        }
+        .feature-panel.dark {
+            background: linear-gradient(135deg, var(--navy), var(--navy-2));
+        }
+        .feature-panel.lilac {
+            background: linear-gradient(135deg, var(--lilac), var(--lilac-dark));
+            color: var(--white);
+        }
+        .feature-panel.neutral {
+            background: linear-gradient(135deg, #1B2E57, #0F1F3D);
+        }
+        .hero {
+            padding: 6rem 0 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .hero p { font-size: 1.1rem; color: rgba(0,0,0,0.8); margin-bottom: 2rem; }
+        .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary { background: var(--lilac); color: var(--white); box-shadow: 0 10px 25px rgba(184, 132, 199, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); }
+        .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); background: transparent; }
+        .hero-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(15, 31, 61, 0.08);
+            box-shadow: 0 20px 60px rgba(15, 31, 61, 0.08);
+        }
+        .hero-card h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 1rem; }
+        section { padding: 4rem 0; }
+        .section-heading { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--navy); margin-bottom: 1rem; text-align: center; }
+        .section-sub { text-align: center; color: rgba(0,0,0,0.7); margin-bottom: 3rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--white); border-radius: 24px; padding: 2rem; border: 1px solid rgba(0,0,0,0.05); min-height: 280px; }
+        .card h4 { font-size: 1.2rem; color: var(--navy); margin-bottom: 0.8rem; }
+        .timeline { margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .timeline-step { padding: 1.5rem; border-left: 2px solid var(--lilac); background: rgba(184, 132, 199, 0.08); border-radius: 0 20px 20px 0; }
+        .forms-section {
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 40px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+        .form-card h3 { color: var(--white); margin-bottom: 1rem; }
+        form { display: flex; flex-direction: column; gap: 1rem; }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 16px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            font-family: 'Sora', sans-serif;
+        }
+        input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.7); }
+        textarea { min-height: 120px; }
+        .authority { background: var(--navy-2); color: var(--white); border-radius: 40px; padding: 3rem; margin-bottom: 3rem; }
+        .quote { font-style: italic; font-size: 1.2rem; margin-bottom: 1.5rem; }
+        .manifesto {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 40px;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+        .manifesto-text h3 { font-size: 1.8rem; color: var(--navy); margin-bottom: 1rem; }
+        .cta-final { text-align: center; padding: 3rem 0 5rem; }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes glitch {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.2; filter: hue-rotate(0deg); }
+            50% { transform: rotate(5deg) scale(1.05); opacity: 0.35; filter: hue-rotate(45deg); }
+            100% { transform: rotate(-5deg) scale(1.02); opacity: 0.15; filter: hue-rotate(-30deg); }
+        }
+        footer { padding: 2rem 0; border-top: 1px solid rgba(15, 31, 61, 0.1); text-align: center; color: rgba(0,0,0,0.6); }
+        @media (max-width: 600px) {
+            .hero-cta { flex-direction: column; }
+            .forms-section { padding: 2rem; }
+            .manifesto { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <p>Se não fores redirecionado automaticamente, <a href="/mams-cleaning-landing.html">clica aqui para aceder à landing Mam's Cleaning</a>.</p>
+    <header>
+        <nav class="container">
+            <div class="logo" aria-label="Mam's Cleaning">
+                <img src="logo-mams.jpg" alt="Logo Mam's Cleaning">
+            </div>
+            <div class="language-toggle">
+                <button class="active" data-lang="pt">PT</button>
+                <span>/</span>
+                <button data-lang="en">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container" id="topo">
+            <div>
+                <p data-i18n="hero.pretitle">Hotel standards. Home comfort.</p>
+                <h1 data-i18n="hero.title">Transforma o teu talento de hotelaria numa carreira premium na Ericeira, Mafra e Venda do Pinheiro.</h1>
+                <p data-i18n="hero.subtitle">Selecionamos profissionais que querem trabalhar com estrutura, clientes premium e respeito absoluto pelo detalhe.</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="scrollToSection('staff-form')" data-i18n="hero.cta1">Quero candidatar-me</button>
+                    <button class="btn btn-outline" onclick="scrollToSection('processo')" data-i18n="hero.cta2">Conhecer o processo</button>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h3 data-i18n="hero.card.title">Padrão de hotel. Conforto de casa.</h3>
+                <p data-i18n="hero.card.text">Operamos residências privadas e alojamento local com a mesma disciplina de um cinco estrelas. Agenda, materiais e supervisão são assegurados diariamente para que possas focar na excelência.</p>
+                <ul>
+                    <li data-i18n="hero.card.list1">Clientes selecionados (AL e residências premium)</li>
+                    <li data-i18n="hero.card.list2">Pagamento transparente + formação contínua</li>
+                    <li data-i18n="hero.card.list3">Resposta em menos de 24h após candidatura</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feature-panel dark">
+            <p class="eyebrow">Paris → Oeste</p>
+            <h2>Do Plaza Athénée para a tua casa.</h2>
+            <p>Fomos recomendados por um dos hotéis mais icónicos de Paris. Agora aplicamos a mesma disciplina e atenção ao detalhe nas residências e alojamento local da Ericeira, Mafra e Venda do Pinheiro.</p>
+        </section>
+
+        <section class="container" id="recrutamento">
+            <h2 class="section-heading" data-i18n="recruit.title">Recrutamento · construímos equipas de excelência</h2>
+            <p class="section-sub" data-i18n="recruit.subtitle">Se trabalhaste em hotelaria, housekeeping ou alojamento local, queremos conhecer-te.</p>
+            <div class="grid">
+                <div class="card">
+                    <h4 data-i18n="recruit.card1.title">Clientes premium e alinhados</h4>
+                    <p data-i18n="recruit.card1.text">Residências privadas, vilas de luxo e AL com elevados padrões. Trabalhas em espaços de respeito e confiança.</p>
+                </div>
+                <div class="card">
+                    <h4 data-i18n="recruit.card2.title">Processos claros</h4>
+                    <p data-i18n="recruit.card2.text">Checklist próprio, briefing antes de cada visita e supervisão direta. Zero improviso, zero caos.</p>
+                </div>
+                <div class="card">
+                    <h4 data-i18n="recruit.card3.title">Respeito pelo profissional</h4>
+                    <p data-i18n="recruit.card3.text">Equipamentos, produtos e suporte fornecidos. Agenda equilibrada, pagamentos em dia e comunicação transparente.</p>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-step" data-i18n="recruit.timeline1">1 · Envia candidatura com a tua experiência</div>
+                <div class="timeline-step" data-i18n="recruit.timeline2">2 · Falamos em 24h e alinhamos expectativas</div>
+                <div class="timeline-step" data-i18n="recruit.timeline3">3 · Treino rápido no padrão Mam's Cleaning</div>
+                <div class="timeline-step" data-i18n="recruit.timeline4">4 · Entradas em clientes premium selecionados</div>
+            </div>
+        </section>
+
+        <section class="container" id="processo">
+            <h2 class="section-heading" data-i18n="process.title">Clientes · Como elevamos o teu espaço</h2>
+            <p class="section-sub" data-i18n="process.subtitle">Aplicamos metodologias de hotelaria em residências privadas e alojamento local.</p>
+            <div class="grid">
+                <div class="card">
+                    <h4 data-i18n="process.card1.title">Diagnóstico</h4>
+                    <p data-i18n="process.card1.text">Analisamos rotinas de check-in, inventário e expectativas de hóspedes para desenhar o plano de limpeza.</p>
+                </div>
+                <div class="card">
+                    <h4 data-i18n="process.card2.title">Plano personalizado</h4>
+                    <p data-i18n="process.card2.text">Checklist detalhado por divisão, materiais recomendados e frequência ideal.</p>
+                </div>
+                <div class="card">
+                    <h4 data-i18n="process.card3.title">Execução</h4>
+                    <p data-i18n="process.card3.text">Equipa dedicada, uniformizada e supervisionada pela Brigida em cada nova operação.</p>
+                </div>
+                <div class="card">
+                    <h4 data-i18n="process.card4.title">Supervisão contínua</h4>
+                    <p data-i18n="process.card4.text">Relatórios semanais e pontos de melhoria alinhados contigo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-panel lilac">
+            <p class="eyebrow">Hotel standards · Home comfort</p>
+            <h2>Serviço estruturado. Detalhe cinco estrelas.</h2>
+            <p>Estruturamos cada turno com checklist, briefings e materiais próprios para garantir consistência em cada visita — seja num AL com alta rotação ou na casa da tua família.</p>
+        </section>
+
+        <section class="container">
+            <div class="forms-section" id="forms">
+                <div class="form-card" id="staff-form">
+                    <h3 data-i18n="forms.staff.title">Candidatura · Profissionais Mam's</h3>
+                    <p data-i18n="forms.staff.text">Vagas ativas para Ericeira, Mafra e Venda do Pinheiro. Respondemos em 24h.</p>
+                    <form>
+                        <input type="text" placeholder="Nome completo" required>
+                        <input type="tel" placeholder="Contacto / WhatsApp" required>
+                        <select required>
+                            <option value="" disabled selected>Experiência principal</option>
+                            <option>Hotelaria 5*</option>
+                            <option>Housekeeping AL</option>
+                            <option>Residências privadas</option>
+                            <option>Outra experiência relevante</option>
+                        </select>
+                        <textarea placeholder="Conte-nos em que serviços trabalhou e disponibilidade"></textarea>
+                        <button type="submit" class="btn btn-primary" data-i18n="forms.staff.cta">Enviar candidatura</button>
+                    </form>
+                </div>
+                <div class="form-card" id="client-form">
+                    <h3 data-i18n="forms.client.title">Proposta · Residências & AL</h3>
+                    <p data-i18n="forms.client.text">Planos sob medida para hosts e famílias que exigem padrão de hotel.</p>
+                    <form>
+                        <input type="text" placeholder="Nome / Empresa" required>
+                        <input type="text" placeholder="Tipo de propriedade" required>
+                        <select required>
+                            <option value="" disabled selected>Localização</option>
+                            <option>Ericeira</option>
+                            <option>Mafra</option>
+                            <option>Venda do Pinheiro</option>
+                            <option>Outra localidade</option>
+                        </select>
+                        <textarea placeholder="Frequência, nº de check-ins e necessidades específicas"></textarea>
+                        <button type="submit" class="btn btn-outline" style="color: var(--white); border-color: var(--white);" data-i18n="forms.client.cta">Quero proposta</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="container authority">
+            <h2 class="section-heading" style="color: var(--white);" data-i18n="authority.title">Autoridade e confiança</h2>
+            <div class="quote" data-i18n="authority.quote">“Trabalhar com a Brigida é ter a certeza de que cada detalhe será cuidado como num Palace em Paris. Consistência, discrição e disciplina impecável.”</div>
+            <p data-i18n="authority.ref">Carta de recomendação · Hôtel Plaza Athénée, Paris</p>
+            <div class="kpis grid" style="margin-top: 2rem;">
+                <div>
+                    <h3>+60</h3>
+                    <p data-i18n="authority.kpi1">turnos premium entregues nos últimos 90 dias</p>
+                </div>
+                <div>
+                    <h3>&lt;24h</h3>
+                    <p data-i18n="authority.kpi2">tempo médio de resposta a novos clientes</p>
+                </div>
+                <div>
+                    <h3>100%</h3>
+                    <p data-i18n="authority.kpi3">equipa com background em hotelaria ou AL</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-panel neutral">
+            <p class="eyebrow">Manifesto</p>
+            <h2 data-i18n="manifesto.title">Nós não limpamos casas. Elevamos padrões.</h2>
+            <p data-i18n="manifesto.text">Levamos a excelência da hotelaria para dentro das casas e alojamento local da Ericeira, Mafra e Venda do Pinheiro. Limpeza não é tarefa — é sistema, disciplina e respeito.</p>
+            <ul style="list-style:none; line-height:2; margin-top:1.5rem; padding:0%;">
+                <li data-i18n="manifesto.list1">• Estrutura cria tranquilidade</li>
+                <li data-i18n="manifesto.list2">• Detalhe cria confiança</li>
+                <li data-i18n="manifesto.list3">• Consistência cria conforto</li>
+            </ul>
+            <p style="margin-top: 1rem; font-weight: 600;">Padrão de hotel. Conforto de casa.</p>
+        </section>
+
+        <section class="container" id="staff-login">
+            <h2 class="section-heading" data-i18n="login.title">Área reservada · Staff Mam's</h2>
+            <p class="section-sub" data-i18n="login.text">Login dedicado para equipa com agenda, briefings e relatórios — em fase de implementação. Solicita acesso direto com a Brigida.</p>
+            <div style="text-align:center; margin-top:2rem%;">
+                <button class="btn btn-outline" data-i18n="login.cta">Solicitar acesso</button>
+            </div>
+        </section>
+
+        <section class="cta-final container">
+            <h2 class="section-heading" data-i18n="cta.title">Escolhe o teu próximo passo</h2>
+            <p class="section-sub" data-i18n="cta.subtitle">Respondemos em menos de 24h.</p>
+            <div class="hero-cta" style="justify-content:center;">
+                <button class="btn btn-primary" onclick="scrollToSection('staff-form')" data-i18n="cta.btn1">Quero trabalhar com a Mam's</button>
+                <button class="btn btn-outline" onclick="scrollToSection('client-form')" data-i18n="cta.btn2">Quero contratar a Mam's</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Mam's Cleaning · Ericeira · Mafra · Venda do Pinheiro</p>
+        <p>Hotel standards. Home comfort.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.dataset.default = el.textContent;
+            });
+        });
+
+        const translations = {
+            en: {
+                "hero.pretitle": "Hotel standards. Home comfort.",
+                "hero.title": "Turn your hospitality talent into a premium career in Ericeira, Mafra and Venda do Pinheiro.",
+                "hero.subtitle": "We select professionals who want structure, premium clients and absolute respect for detail.",
+                "hero.cta1": "Apply now",
+                "hero.cta2": "Discover the process",
+                "hero.card.title": "Hotel standard. Home comfort.",
+                "hero.card.text": "We run private residences and short-term rentals with five-star discipline. We handle scheduling, materials and supervision daily so you focus on excellence.",
+                "hero.card.list1": "Selected clients (luxury rentals & residences)",
+                "hero.card.list2": "Transparent pay + ongoing training",
+                "hero.card.list3": "Response within 24h",
+                "recruit.title": "Recruitment · building elite teams",
+                "recruit.subtitle": "If you worked in hospitality, housekeeping or STR, we want to meet you.",
+                "recruit.card1.title": "Premium clients",
+                "recruit.card1.text": "Private homes, villas and STR owners who value detail.",
+                "recruit.card2.title": "Clear processes",
+                "recruit.card2.text": "Own checklist, briefing before each visit and direct supervision.",
+                "recruit.card3.title": "Respect for professionals",
+                "recruit.card3.text": "Equipment, fair schedules and on-time payments.",
+                "recruit.timeline1": "1 · Submit your experience",
+                "recruit.timeline2": "2 · Alignment call within 24h",
+                "recruit.timeline3": "3 · Quick training on Mam's standards",
+                "recruit.timeline4": "4 · Start with premium clients",
+                "process.title": "Clients · How we elevate your space",
+                "process.subtitle": "Hotel methodology for private homes and STR.",
+                "process.card1.title": "Diagnosis",
+                "process.card1.text": "We analyse check-ins, inventory and expectations.",
+                "process.card2.title": "Custom plan",
+                "process.card2.text": "Detailed checklist per room and ideal frequency.",
+                "process.card3.title": "Execution",
+                "process.card3.text": "Dedicated team supervised by Brigida.",
+                "process.card4.title": "Continuous oversight",
+                "process.card4.text": "Weekly reports and improvements.",
+                "forms.staff.title": "Apply · Mam's Professionals",
+                "forms.staff.text": "Open roles for Ericeira, Mafra and Venda do Pinheiro. Reply within 24h.",
+                "forms.staff.cta": "Submit application",
+                "forms.client.title": "Proposal · Residences & STR",
+                "forms.client.text": "Tailored plans for hosts and families who demand hotel standards.",
+                "forms.client.cta": "Request proposal",
+                "authority.title": "Authority & trust",
+                "authority.quote": "“Working with Brigida means every detail is handled like a Palace in Paris. Consistency, discretion and discipline.”",
+                "authority.ref": "Recommendation letter · Hôtel Plaza Athénée, Paris",
+                "authority.kpi1": "premium turnarounds delivered in 90 days",
+                "authority.kpi2": "average response time",
+                "authority.kpi3": "team with hospitality background",
+                "manifesto.title": "Mam's Cleaning Manifesto",
+                "manifesto.text": "We don’t clean houses. We elevate standards. We bring hospitality excellence into homes and rentals.",
+                "manifesto.tagline": "Hotel standard. Home comfort.",
+                "manifesto.list1": "• Structure creates calm",
+                "manifesto.list2": "• Detail builds trust",
+                "manifesto.list3": "• Consistency builds comfort",
+                "login.title": "Reserved area · Mam's Staff",
+                "login.text": "Dedicated login with agenda, briefings and reports — coming soon. Request access directly with Brigida.",
+                "login.cta": "Request access",
+                "cta.title": "Choose your next step",
+                "cta.subtitle": "We answer within 24h.",
+                "cta.btn1": "Work with Mam's",
+                "cta.btn2": "Hire Mam's"
+            }
+        };
+
+        const buttons = document.querySelectorAll('.language-toggle button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        function switchLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (lang === 'en' && translations.en[key]) {
+                    el.textContent = translations.en[key];
+                } else {
+                    el.textContent = el.dataset.default || el.textContent;
+                }
+            });
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
 </body>
 </html>
